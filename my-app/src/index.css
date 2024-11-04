@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+.minimo-login{
+      @apply col-start-1 col-end-13 bg-white ;
+}
+
+.sm-login{
+   @apply col-start-2 col-end-12 bg-white;
+}
+
+.lg-login{
+
+   @apply col-start-4 col-end-10 bg-white;
+}
+
+.text-gradient {
+   background-clip: text;
+   -webkit-background-clip: text;
+   color: transparent;
+   background-image: linear-gradient(to right, #3b82f6, #10b981, #0002); /* Tres colores de gradiente */
+}
+
+
+
+
+.mini-input{
+   @apply w-[100px] border-b border-gray-400 focus:outline-none ;
+ }
+
+
+ .minix-input{
+   @apply w-[180px] border-b border-gray-400  focus:outline-none  ;
+ }
+
+
+
+ .minimo-input{
+   @apply w-[250px] border-b border-gray-400  focus:outline-none ;
+ }
+
+
+
+
+ .slider{
+@apply  flex relative w-screen h-[500px] ;
+
+ }
+
+
+
+ 
+ .mini-img{
+  @apply relative bottom-0 left-[24px];
+}
+ .minix-img{
+   @apply relative bottom-0 left-[30px];
+ }
+
+
+
+
+
+
+ .minix-btn-sliderNext{
+  @apply relative bottom-0 left-[70px] ;
+}
+
+.minix-btn-sliderReturn{
+   @apply relative bottom-0 right-[70px]  ;
+}
+
+
+
+
+ .max-btn-sliderReturn{
+   @apply relative bottom-0 right-[130px]  ;
+ }
+ .max-btn-sliderNext{
+   @apply relative bottom-0 left-[130px] ;
+ }
+
+
+
+ 
+
+
+}
