@@ -1,72 +1,50 @@
-CREATE DATABASE MICROSYSTEMSBD;
-USE MICROSYSTEMSBD;
+-- Crear la base de datos
+CREATE DATABASE gestion_estudiantes;
+USE gestion_estudiantes;
 
--- 1. Crear la tabla ESTUDIANTES
-CREATE TABLE ESTUDIANTES (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Clave primaria autoincremental
-    nombre VARCHAR(100), -- Nombre del estudiante
-    apellido VARCHAR(100), -- Apellido del estudiante
-    edad INT, -- Edad del estudiante
-    sexo VARCHAR(13), -- Sexo del estudiante
-    distrito VARCHAR(50), -- Distrito del estudiante
-    celular VARCHAR(15) -- Celular del estudiante
+-- Crear la tabla 'instituciones' con el nombre de columna corregido
+CREATE TABLE instituciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    grado INT NOT NULL,
+    seccion VARCHAR(10) NOT NULL,
+    turno VARCHAR(50) NOT NULL,
+    nivel_academico VARCHAR(50) NOT NULL
 );
 
--- 2. Insertar datos en la tabla ESTUDIANTES
-INSERT INTO ESTUDIANTES (nombre, apellido, edad, sexo, distrito, celular)
-VALUES ('pepe', 'grillo', 20, 'masculino', 'iquitos', '987654321');
-
-INSERT INTO ESTUDIANTES (nombre, apellido, edad, sexo, distrito, celular)
-VALUES ('Juan', 'Pérez', 18, 'masculino', 'Lima', '987654321');
-
--- 3. Crear la tabla USUARIOS
-CREATE TABLE USUARIOS (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Clave primaria autoincremental
-    nombre VARCHAR(100), -- Nombre del usuario
-    apellido VARCHAR(100), -- Apellido del usuario
-    email VARCHAR(100) UNIQUE, -- Email del usuario
-    password VARCHAR(255), -- Contraseña del usuario (se recomienda almacenar un hash)
-    role VARCHAR(50) -- Rol del usuario (ej: admin, user, etc.)
+-- Crear la tabla 'estudiantes' con la clave foránea 'institucion_id'
+CREATE TABLE estudiantes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    sexo VARCHAR(10) NOT NULL,
+    edad INT NOT NULL,
+    celular INT NOT NULL,
+    distrito VARCHAR(255) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
+    institucion_id INT,
+    FOREIGN KEY (institucion_id) REFERENCES instituciones(id) ON DELETE CASCADE
 );
 
--- 5. Crear la tabla INSTITUCIONES, con una clave foránea que referencia a ESTUDIANTES
-CREATE TABLE INSTITUCIONES (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Clave primaria autoincremental
-    nombre VARCHAR(100), -- Nombre de la institución
-    grado INT, -- Grado de los estudiantes en la institución
-    seccion VARCHAR(2), -- Sección del estudiante
-    turno VARCHAR(20), -- Turno (mañana, tarde, etc.)
-    nivelAcademico VARCHAR(20), -- Nivel académico (primaria, secundaria, etc.)
-    estudiante_id INT, -- Clave foránea que referencia a la tabla ESTUDIANTES
-    FOREIGN KEY (estudiante_id) REFERENCES ESTUDIANTES(id) -- Establece la relación con ESTUDIANTES
+-- Crear la tabla 'usuarios'
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    nombre VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
 );
 
--- 6. Insertar datos en la tabla INSTITUCIONES, asociando a un estudiante existente
-INSERT INTO INSTITUCIONES (nombre, grado, seccion, turno, nivelAcademico, estudiante_id)
-VALUES ('augusto freyre', 3, 'H', 'mañana', 'primaria', 1);
+-- Insertar datos de ejemplo en la tabla 'instituciones'
+INSERT INTO instituciones (nombre, grado, seccion, turno, nivel_academico) VALUES
+('Instituto Nacional', 5, 'A', 'Mañana', 'Secundaria'),
+('Colegio Central', 3, 'B', 'Tarde', 'Primaria'),
+('Escuela Técnica', 2, 'C', 'Mañana', 'Primaria');
 
--- 7. Crear la tabla LLAMADAS, con claves foráneas que referencian a ESTUDIANTES e INSTITUCIONES
-CREATE TABLE LLAMADAS (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Clave primaria autoincremental
-    estudiante_id INT, -- Clave foránea que referencia a la tabla ESTUDIANTES
-    institucion_id INT, -- Clave foránea que referencia a la tabla INSTITUCIONES
-    estado VARCHAR(20), -- Estado de la llamada (ej: pendiente, realizada)
-    FOREIGN KEY (estudiante_id) REFERENCES ESTUDIANTES(id), -- Relación con ESTUDIANTES
-    FOREIGN KEY (institucion_id) REFERENCES INSTITUCIONES(id) -- Relación con INSTITUCIONES
-);
-
--- 8. Insertar datos en la tabla LLAMADAS, asociando un estudiante y una institución
-INSERT INTO LLAMADAS (estudiante_id, institucion_id, estado)
-VALUES (1, 1, 'pendiente');
-
--- 9. Crear la tabla MATRICULADOS, con claves foráneas que referencian a ESTUDIANTES, INSTITUCIONES y USUARIOS
-CREATE TABLE MATRICULADOS (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Clave primaria autoincremental
-    estudiante_id INT, -- Clave foránea que referencia a la tabla ESTUDIANTES
-    institucion_id INT, -- Clave foránea que referencia a la tabla INSTITUCIONES
-    usuario_id INT, -- Clave foránea que referencia a la tabla USUARIOS
-    fecha_matricula DATE, -- Fecha de matriculación del estudiante
-    FOREIGN KEY (estudiante_id) REFERENCES ESTUDIANTES(id), -- Relación con ESTUDIANTES
-    FOREIGN KEY (institucion_id) REFERENCES INSTITUCIONES(id), -- Relación con INSTITUCIONES
-    FOREIGN KEY (usuario_id) REFERENCES USUARIOS(id) -- Relación con USUARIOS
-);
+-- Insertar datos de ejemplo en la tabla 'estudiantes'
+INSERT INTO estudiantes (nombre, apellido, sexo, edad, celular, distrito, estado, institucion_id) VALUES
+('Carlos', 'Perez', 'Masculino', 16, 987654321, 'Lima', 'Activo', 1),
+('Ana', 'Lopez', 'Femenino', 10, 987654322, 'Arequipa', 'Activo', 2),
+('Luis', 'Ramirez', 'Masculino', 15, 987654323, 'Cusco', 'Inactivo', 1),
+('Marta', 'Sanchez', 'Femenino', 8, 987654324, 'Trujillo', 'Activo', 3);

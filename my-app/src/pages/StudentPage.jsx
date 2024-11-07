@@ -27,8 +27,11 @@ const StudentPage = () => {
           <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
             {/* Renderiza la tabla de Estudiantes */}
             <ButtonWithModal buttonText="guardar estudiantes" fields={fieldsFormulario3} />
-           
-            <Tabla datos={datosEstudiantes} columnas={columnasEstudiantes} />
+            <Tabla
+        datos={ datosEstudiantes}
+        columnas={columnasEstudiantes}
+      />
+
             
           </main>
         </div>

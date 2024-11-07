@@ -25,17 +25,19 @@ class UserService{
         }
     }
 
-    static async getAllUsers(token){
-        try{
-            const response = await axios.get(`${UserService.BASE_URL}/admin/get-all-users`, 
-            {
-                headers: {Authorization: `Bearer ${token}`}
-            })
+    static async getAllUsers(token) {
+        try {
+            const response = await axios.get(`${UserService.BASE_URL}/admin/get-all-users`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            console.log(response.data); // Revisa lo que está devolviendo la API
             return response.data;
-        }catch(err){
+        } catch (err) {
+            console.error("Error al obtener los usuarios:", err);
             throw err;
         }
     }
+    
 
 
     static async getYourProfile(token){

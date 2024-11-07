@@ -1,5 +1,3 @@
-// src/services/InstitucionService.js
-
 import axios from 'axios';
 
 class InstitucionService {
@@ -10,7 +8,8 @@ class InstitucionService {
             const response = await axios.get(this.API_URL);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error("Error en listarInstituciones:", err);
+            throw new Error('Hubo un problema al obtener las instituciones');
         }
     }
 
@@ -19,7 +18,8 @@ class InstitucionService {
             const response = await axios.post(this.API_URL, institucion);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error("Error en guardarInstitucion:", err);
+            throw new Error('Hubo un problema al guardar la institución');
         }
     }
 
@@ -28,7 +28,8 @@ class InstitucionService {
             const response = await axios.get(`${this.API_URL}/${id}`);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error(`Error en obtenerInstitucionPorId con id ${id}:`, err);
+            throw new Error('Hubo un problema al obtener la institución por ID');
         }
     }
 
@@ -37,7 +38,8 @@ class InstitucionService {
             const response = await axios.put(`${this.API_URL}/${id}`, institucion);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error(`Error en actualizarInstitucion con id ${id}:`, err);
+            throw new Error('Hubo un problema al actualizar la institución');
         }
     }
 
@@ -46,7 +48,8 @@ class InstitucionService {
             const response = await axios.delete(`${this.API_URL}/${id}`);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error(`Error en eliminarInstitucion con id ${id}:`, err);
+            throw new Error('Hubo un problema al eliminar la institución');
         }
     }
 }

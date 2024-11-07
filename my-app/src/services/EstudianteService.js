@@ -1,5 +1,3 @@
-// src/services/EstudianteService.js
-
 import axios from 'axios';
 
 class EstudianteService {
@@ -10,7 +8,8 @@ class EstudianteService {
             const response = await axios.get(this.API_URL);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error("Error en listarEstudiantes:", err);
+            throw new Error('Hubo un problema al obtener los estudiantes');
         }
     }
 
@@ -19,7 +18,8 @@ class EstudianteService {
             const response = await axios.post(this.API_URL, estudiante);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error("Error en guardarEstudiante:", err);
+            throw new Error('Hubo un problema al guardar el estudiante');
         }
     }
 
@@ -28,7 +28,8 @@ class EstudianteService {
             const response = await axios.get(`${this.API_URL}/${id}`);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error(`Error en obtenerEstudiantePorId con id ${id}:`, err);
+            throw new Error('Hubo un problema al obtener el estudiante por ID');
         }
     }
 
@@ -37,7 +38,8 @@ class EstudianteService {
             const response = await axios.put(`${this.API_URL}/${id}`, estudiante);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error(`Error en actualizarEstudiante con id ${id}:`, err);
+            throw new Error('Hubo un problema al actualizar el estudiante');
         }
     }
 
@@ -46,7 +48,8 @@ class EstudianteService {
             const response = await axios.delete(`${this.API_URL}/${id}`);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error(`Error en eliminarEstudiante con id ${id}:`, err);
+            throw new Error('Hubo un problema al eliminar el estudiante');
         }
     }
 
@@ -55,7 +58,8 @@ class EstudianteService {
             const response = await axios.get(`${this.API_URL}/duplicados`);
             return response.data;
         } catch (err) {
-            throw err;
+            console.error("Error en listarEstudiantesDuplicados:", err);
+            throw new Error('Hubo un problema al obtener los estudiantes duplicados');
         }
     }
 }

@@ -7,12 +7,7 @@ import ButtonWithModal from '../components/users/ButtonWithModal';
 
 const UsersPage = () => {
   const token = localStorage.getItem('token');
-  const {
-    datosUsuarios,
-    columnasUsuarios,
-    handleDelete,
-  } = useTablaData(token);
-
+  const { datosUsuarios, columnasUsuarios, handleDelete } = useTablaData(token);
 
 
   const fieldsFormulario2 = [
@@ -34,7 +29,7 @@ const UsersPage = () => {
           <Tabla
         datos={datosUsuarios}
         columnas={columnasUsuarios}
-        onDelete={handleDelete} // Asegúrate de pasar handleDelete aquí
+        onDelete={handleDelete} // Pasa la función de eliminar
       />
         </main>
       </div>
